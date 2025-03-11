@@ -1,7 +1,7 @@
 title: "HELIOS Cyber Wednesday"
 description: "Site dédié aux conférences HELIOS Cyber Wednesday"
 baseurl: ""          # Leave empty if publishing at the domain root
-url: "https://yourusername.github.io"  # Replace with your URL
+url: "https://heliosc4i.github.io/cyberwednesday/"  # Replace with your URL
 theme: minima
 paginate: 5
 paginate_path: "/page:num/"
