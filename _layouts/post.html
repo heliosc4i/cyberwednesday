@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>{{ page.title }} - {{ site.title }}</title>
-  <link rel="stylesheet" href="{{ '/cyberwednesday/assets/css/style.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/cybersecurity/assets/css/style.css' | relative_url }}">
   <style>
     /* Inline styles for demonstration; move them to your CSS file if desired */
     .post-container {
@@ -12,13 +12,13 @@
       margin: 20px 0;
     }
     .post-flyer {
-      flex: 1 1 300px;
-      max-width: 300px;
+      flex: 1 1 200px;
+      max-width: 200px;
       margin-right: 20px;
     }
     .post-flyer img {
-      width: 100%;
-      height: auto;
+      width: 200px;
+      height: 350px;
       border: 1px solid #ddd;
       border-radius: 4px;
     }
@@ -69,7 +69,7 @@
       <div class="post-container">
         {% if page.flyer %}
           <div class="post-flyer">
-            <img src="{{ page.flyer | relative_url }}" width="200" height="350"  alt="Flyer pour {{ page.title }}">
+            <img src="{{ page.flyer | relative_url }}" alt="Flyer pour {{ page.title }}">
           </div>
         {% endif %}
         <div class="post-summary">
