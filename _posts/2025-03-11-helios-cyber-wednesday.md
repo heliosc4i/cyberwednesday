@@ -2,7 +2,7 @@
 layout: post
 title: "HELIOS Cyber Wednesday - 11 Mars 2025"
 date: 2025-03-11
-flyer: /assets/images/conf-2025-03-11-flyer.png
+flyer: /cyberwednesday/assets/images/20250108_29_CYBERSECURITYCAPACITYMATURITYMODEL.jpg
 summary: "Un aperçu rapide des sujets abordés lors de la conférence du 11 Mars 2025."
 ppt_link: /assets/downloads/conf-2025-03-11.pptx
 ---
