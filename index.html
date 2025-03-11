@@ -1,0 +1,57 @@
+---
+layout: default
+title: "HELIOS Cyber Wednesday"
+---
+
+<div id="conference-list">
+  {% for post in paginator.posts %}
+    <article class="conference">
+      <header>
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <p class="date">{{ post.date | date: "%d %B %Y" }}</p>
+      </header>
+      {% if post.flyer %}
+        <div class="flyer">
+          <img src="{{ post.flyer | relative_url }}" alt="Flyer for {{ post.title }}">
+        </div>
+      {% endif %}
+      {% if post.summary %}
+        <div class="resume">
+          <p>{{ post.summary }}</p>
+        </div>
+      {% endif %}
+      {% if post.ppt_link %}
+        <div class="download">
+          <a href="{{ post.ppt_link | relative_url }}" download>Télécharger la présentation (PPT)</a>
+        </div>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>
+
+<nav class="pagination">
+  {% if paginator.next_page %}
+    <a class="next" href="{{ paginator.next_page_path | relative_url }}">Next</a>
+  {% endif %}
+</nav>
+
+<div class="page-load-status">
+  <div class="infinite-scroll-request">Chargement…</div>
+  <div class="infinite-scroll-last">Fin des conférences.</div>
+  <div class="infinite-scroll-error">Erreur de chargement.</div>
+</div>
+
+<!-- jQuery and Infinite Scroll via CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+<script>
+  // Initialize infinite scroll on the container that holds the posts
+  var $container = $('#conference-list');
+  $container.infiniteScroll({
+    path: '.pagination a.next',
+    append: '.conference',
+    history: false,
+    status: '.page-load-status',
+    checkLastPage: true,
+  });
+</script>
