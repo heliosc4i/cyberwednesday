@@ -4,6 +4,49 @@
   <meta charset="UTF-8">
   <title>{{ page.title }} - {{ site.title }}</title>
   <link rel="stylesheet" href="{{ '/cyberwednesday/assets/css/style.css' | relative_url }}">
+  <style>
+    /* Inline styles for demonstration; move them to your CSS file if desired */
+    .post-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .post-flyer {
+      flex: 1 1 300px;
+      max-width: 300px;
+      margin-right: 20px;
+    }
+    .post-flyer img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .post-summary {
+      flex: 2 1 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .download-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #007acc;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    @media (max-width: 768px) {
+      .post-container {
+        flex-direction: column;
+      }
+      .post-flyer {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -16,25 +59,30 @@
     </nav>
   </header>
 
-  <main class="container post">
-    <article>
-      <header>
+  <main class="container">
+    <article class="post">
+      <header class="post-header">
         <h2>{{ page.title }}</h2>
-        <p class="date">{{ page.date | date: "%d %B %Y" }}</p>
+        <p class="post-date">{{ page.date | date: "%d %B %Y" }}</p>
       </header>
-      {% if page.flyer %}
-        <div class="flyer">
-          <img src="{{ page.flyer | relative_url }}" alt="Flyer for {{ page.title }}">
+
+      <div class="post-container">
+        {% if page.flyer %}
+          <div class="post-flyer">
+            <img src="{{ page.flyer | relative_url }}" alt="Flyer pour {{ page.title }}">
+          </div>
+        {% endif %}
+        <div class="post-summary">
+          {% if page.summary %}
+            <p>{{ page.summary }}</p>
+          {% endif %}
+          {% if page.ppt_link %}
+            <a href="{{ page.ppt_link | relative_url }}" class="download-link" download>
+              Télécharger la présentation (PPT)
+            </a>
+          {% endif %}
         </div>
-      {% endif %}
-      <div class="resume">
-        {{ content }}
       </div>
-      {% if page.ppt_link %}
-        <div class="download">
-          <a href="{{ page.ppt_link | relative_url }}" download>Télécharger la présentation (PPT)</a>
-        </div>
-      {% endif %}
     </article>
   </main>
 
