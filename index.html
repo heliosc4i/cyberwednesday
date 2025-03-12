@@ -6,7 +6,9 @@ title: "HELIOS Cyber Wednesday"
 <style>
   /* Center the flyer image and download link */
   #conference-list .flyer,
-  #conference-list .download {
+  #conference-list .download,
+  .resume,
+  h3 {
     text-align: center;
   }
   /* Ensure the image is treated as an inline element for proper centering */
@@ -20,7 +22,6 @@ title: "HELIOS Cyber Wednesday"
   <article class="conference">
     <header>
       <h3>{{ post.title }}</h3>
-      <p class="date">{{ post.date | date: "%d %B %Y" }}</p>
     </header>
     {% if post.flyer %}
     <div class="flyer">
@@ -34,7 +35,7 @@ title: "HELIOS Cyber Wednesday"
     {% endif %}
     {% if post.ppt_link %}
     <div class="download">
-      <a href="{{ post.ppt_link | relative_url }}" download>Télécharger la présentation (PPT)</a>
+      <a href="{{ post.ppt_link | relative_url }}" download>{{ post.title }} (PPT)</a>
     </div>
     {% endif %}
   </article>
