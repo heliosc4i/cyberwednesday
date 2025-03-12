@@ -67,20 +67,24 @@
       </header>
 
       <div class="post-container">
+      <center>
         {% if page.flyer %}
           <div class="post-flyer">
             <img src="{{ page.flyer | relative_url }}" alt="Flyer pour {{ page.title }}">
           </div>
         {% endif %}
+        </center>
         <div class="post-summary">
           {% if page.summary %}
             <p>{{ page.summary }}</p>
           {% endif %}
+          <center>
           {% if page.ppt_link %}
             <a href="{{ page.ppt_link | relative_url }}" class="download-link" download>
               Télécharger la présentation (PPT)
             </a>
           {% endif %}
+          </center>
         </div>
       </div>
     </article>
