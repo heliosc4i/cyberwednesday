@@ -3,7 +3,7 @@ layout: post
 title: "OSINT - 15 Janvier 2025"
 date: 2025-01-15
 flyer: /cyberwednesday/assets/images/20250115_30_OSINT.jpg
-summary: "Cette présentation présente l'OSINT (Renseignement en Source Ouverte) comme une méthode essentielle pour transformer des données publiques en renseignements stratégiques, soulignant son accessibilité et sa valeur dans divers domaines comme la sécurité et le renseignement commercial. Elle détaille les types, sources, outils et techniques de l'OSINT, ainsi que ses applications en cybersécurité et les considérations éthiques et légales associées à son utilisation."
+summary: "Cette prÃ©sentation prÃ©sente l'OSINT (Renseignement en Source Ouverte) comme une mÃ©thode essentielle pour transformer des donnÃ©es publiques en renseignements stratÃ©giques, soulignant son accessibilitÃ© et sa valeur dans divers domaines comme la sÃ©curitÃ© et le renseignement commercial. Elle dÃ©taille les types, sources, outils et techniques de l'OSINT, ainsi que ses applications en cybersÃ©curitÃ© et les considÃ©rations Ã©thiques et lÃ©gales associÃ©es Ã  son utilisation."
 ppt_link: /cyberwednesday/assets/downloads/30-OSINT.pptx
 ---
 
