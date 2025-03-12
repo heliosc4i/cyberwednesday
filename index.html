@@ -3,29 +3,40 @@ layout: default
 title: "HELIOS Cyber Wednesday"
 ---
 
+<style>
+  /* Center the flyer image and download link */
+  #conference-list .flyer,
+  #conference-list .download {
+    text-align: center;
+  }
+  /* Ensure the image is treated as an inline element for proper centering */
+  #conference-list .flyer img {
+    display: inline-block;
+  }
+</style>
+
 <div id="conference-list">
   {% for post in site.posts %}
-    <article class="conference">
-      <header>
-        <h3>{{ post.title }}</h3>
-        <p class="date">{{ post.date | date: "%d %B %Y" }}</p>
-      </header>
-      {% if post.flyer %}
-        <div class="flyer">
-          <img src="{{ post.flyer | relative_url }}" alt="Flyer for {{ post.title }}">
-        </div>
-      {% endif %}
-      {% if post.summary %}
-        <div class="resume">
-          <p>{{ post.summary }}</p>
-        </div>
-      {% endif %}
-      {% if post.ppt_link %}
-        <div class="download">
-          <a href="{{ post.ppt_link | relative_url }}" download>Télécharger la présentation (PPT)</a>
-        </div>
-      {% endif %}
-    </article>
+  <article class="conference">
+    <header>
+      <h3>{{ post.title }}</h3>
+      <p class="date">{{ post.date | date: "%d %B %Y" }}</p>
+    </header>
+    {% if post.flyer %}
+    <div class="flyer">
+      <img src="{{ post.flyer | relative_url }}" alt="Flyer for {{ post.title }}">
+    </div>
+    {% endif %}
+    {% if post.summary %}
+    <div class="resume">
+      <p>{{ post.summary }}</p>
+    </div>
+    {% endif %}
+    {% if post.ppt_link %}
+    <div class="download">
+      <a href="{{ post.ppt_link | relative_url }}" download>Télécharger la présentation (PPT)</a>
+    </div>
+    {% endif %}
+  </article>
   {% endfor %}
 </div>
-
