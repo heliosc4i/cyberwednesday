@@ -4,26 +4,37 @@
   <meta charset="UTF-8">
   <title>{{ page.title }} - {{ site.title }}</title>
   <link rel="stylesheet" href="{{ '/cyberwednesday/assets/css/style.css' | relative_url }}">
+  <style>
+    /* Joyful header and footer styling */
+    .site-header, .site-footer {
+      background-color: #ffeb3b; /* Joyful yellow */
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+    /* Logo styling */
+    .site-header .logo img {
+      max-height: 80px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
-    <nav>
-      <ul>
-        <li><a href="{{ '/' | relative_url }}">Accueil</a></li>
-        <li><a href="{{ '/about/' | relative_url }}">À propos</a></li>
-      </ul>
-    </nav>
-  </header>
+<header class="site-header">
+  <div class="logo">
+    <img src="{{ '/cyberwednesday/assets/images/logo.jpg' | relative_url }}" alt="Logo">
+  </div>
+  <h1><a href="{{ '/cyberwednesday/' | relative_url }}">{{ site.title }}</a></h1>
+  <sub>Site dédié au recueil des présentations des conférences</sub>
+</header>
 
-  <main class="container">
-    {{ content }}
-  </main>
+<main class="container">
+  {{ content }}
+</main>
 
-  <footer class="site-footer">
-    <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. Tous droits réservés.</p>
-  </footer>
-  <script src="{{ '/cyberwednesday/assets/js/infinite-scroll-init.js' | relative_url }}"></script>
-
+<footer class="site-footer">
+  <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. Tous droits réservés.</p>
+</footer>
+<script src="{{ '/cyberwednesday/assets/js/infinite-scroll-init.js' | relative_url }}"></script>
 </body>
 </html>
