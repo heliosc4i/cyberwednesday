@@ -1,6 +1,6 @@
 title: "Projet HELIOS - Mercredi Cyber"
 description: "Site dédié aux conférences Mercredi Cyber du Projet HELIOS"
-baseurl: "https://heliosc4i.github.io/cyberwednesday/"
+baseurl: "/cyberwednesday"
 url: "https://heliosc4i.github.io/cyberwednesday/"
 theme: minima
 plugins:

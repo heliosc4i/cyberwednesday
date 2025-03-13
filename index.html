@@ -6,52 +6,64 @@ pagination:
 ---
 
 <style>
-  /* Center the flyer image and download link */
-  #conference-list .flyer,
-  #conference-list .download,
-  .resume,
-  h3 {
-    text-align: center;
-  }
-  /* Ensure the image is treated as an inline element for proper centering */
-  #conference-list .flyer img {
-    display: inline-block;
-  }
-  .pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem 0;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+/* Center the flyer image and download link */
+#conference-list .flyer,
+#conference-list .download,
+.resume,
+h3 {
+  text-align: center;
+}
+/* Ensure the image is treated as an inline element for proper centering */
+#conference-list .flyer img {
+  display: inline-block;
+}
+.pagination-wrapper {
+text-align: center;
 }
 
-.pagination .pagination-link {
-  padding: 0.6em 1.2em;
-  margin: 0 0.3em;
-  border: 2px solid #3498db;
-  border-radius: 25px;
-  background-color: #fff;
-  color: #3498db;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+.pagination {
+  display: inline-block;
+  margin: 0 0 2rem;
 }
 
-.pagination .pagination-link:hover {
-  background-color: #3498db;
+.pagination a,
+.pagination span {
+  border-radius: 3px;
+  float: left;
+  height: 36px;
+  line-height: 36px;
+  width: 30px;
+}
+
+a.pagination-step,
+span.pagination-step {
+  padding: 0 10px;
+  width: auto;
+}
+
+.pagination-first,
+.pagination-last,
+.pagination-more, {
+  display: none;
+}
+
+.pagination .active {
+  background: #ddd;
   color: #fff;
 }
 
-.pagination .disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+@media (min-width: 38em) {
+  .pagination-first,
+  .pagination-last,
+  .pagination-more {
+    display: block;
+  }
 
-.pagination .pagination-page-number {
-  font-weight: bold;
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0 1em;
+  a.pagination-step,
+  span.pagination-step {
+    padding: 0 15px;
+    width: auto;
+  }
 }
 </style>
 
@@ -87,7 +99,7 @@ pagination:
   <span class="pagination-link pagination-previous disabled">Précédent</span>
   {% endif %}
 
-  <span class="pagination-link pagination-page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  <span class="pagination-link pagination-page-number">Page {{ paginator.page }} sur {{ paginator.total_pages }}</span>
 
   {% if paginator.next_page %}
   <a class="pagination-link pagination-next" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Suivant</a>
