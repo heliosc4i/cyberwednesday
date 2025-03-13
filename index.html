@@ -94,7 +94,7 @@ span.pagination-step {
 {% if paginator.total_pages > 1 %}
 <nav class="pagination" role="navigation">
   {% if paginator.previous_page %}
-  <a class="pagination-link pagination-previous" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Précédent</a>
+  <a class="pagination-link pagination-previous" href="{{ paginator.previous_page_path | prepend: '/cyberwednesday' }}">Précédent</a>
   {% else %}
   <span class="pagination-link pagination-previous disabled">Précédent</span>
   {% endif %}
@@ -102,7 +102,7 @@ span.pagination-step {
   <span class="pagination-link pagination-page-number">Page {{ paginator.page }} sur {{ paginator.total_pages }}</span>
 
   {% if paginator.next_page %}
-  <a class="pagination-link pagination-next" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Suivant</a>
+  <a class="pagination-link pagination-next" href="{{ paginator.next_page_path | prepend: '/cyberwednesday' }}">Suivant</a>
   {% else %}
   <span class="pagination-link pagination-next disabled">Suivant</span>
   {% endif %}
