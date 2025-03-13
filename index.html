@@ -17,6 +17,42 @@ pagination:
   #conference-list .flyer img {
     display: inline-block;
   }
+  .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.pagination .pagination-link {
+  padding: 0.6em 1.2em;
+  margin: 0 0.3em;
+  border: 2px solid #3498db;
+  border-radius: 25px;
+  background-color: #fff;
+  color: #3498db;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .pagination-link:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.pagination .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination .pagination-page-number {
+  font-weight: bold;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0 1em;
+}
 </style>
 
 <div id="conference-list">
@@ -43,3 +79,20 @@ pagination:
   </article>
   {% endfor %}
 </div>
+{% if paginator.total_pages > 1 %}
+<nav class="pagination" role="navigation">
+  {% if paginator.previous_page %}
+  <a class="pagination-link pagination-previous" href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Précédent</a>
+  {% else %}
+  <span class="pagination-link pagination-previous disabled">Précédent</span>
+  {% endif %}
+
+  <span class="pagination-link pagination-page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+  {% if paginator.next_page %}
+  <a class="pagination-link pagination-next" href="{{ paginator.next_page_path | prepend: site.baseurl }}">Suivant</a>
+  {% else %}
+  <span class="pagination-link pagination-next disabled">Suivant</span>
+  {% endif %}
+</nav>
+{% endif %}
