@@ -15,20 +15,6 @@ body {
   background-color: #fff;
 }
 
-/* Sober header and footer styling */
-.site-header, .site-footer {
-  background-color: #333; /* Dark gray background */
-  color: #fff;           /* White text */
-  padding: 20px;
-  text-align: center;
-}
-
-/* Logo styling */
-.site-header .logo img {
-  max-height: 80px;
-  margin-bottom: 10px;
-}
-
 .site-header a, .site-footer a {
   color: #fff;
   text-decoration: none;
