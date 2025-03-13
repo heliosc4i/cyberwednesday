@@ -46,3 +46,38 @@ body {
   display: block;
   margin: 10px 0;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.pagination .pagination-link {
+  padding: 0.6em 1.2em;
+  margin: 0 0.3em;
+  border: 2px solid #333;
+  background-color: #fff;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .pagination-link:hover {
+  background-color: #333;
+  color: white;
+}
+
+.pagination .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination .pagination-page-number {
+  font-weight: bold;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0 1em;
+}
