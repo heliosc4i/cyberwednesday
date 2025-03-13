@@ -23,48 +23,21 @@ text-align: center;
 
 .pagination {
   display: inline-block;
-  margin: 0 0 2rem;
 }
 
-.pagination a,
-.pagination span {
-  border-radius: 3px;
+.pagination a {
+  color: black;
   float: left;
-  height: 36px;
-  line-height: 36px;
-  width: 30px;
+  padding: 8px 16px;
+  text-decoration: none;
 }
 
-a.pagination-step,
-span.pagination-step {
-  padding: 0 10px;
-  width: auto;
+.pagination a.active {
+  background-color: #333;
+  color: white;
 }
 
-.pagination-first,
-.pagination-last,
-.pagination-more, {
-  display: none;
-}
-
-.pagination .active {
-  background: #ddd;
-  color: #fff;
-}
-
-@media (min-width: 38em) {
-  .pagination-first,
-  .pagination-last,
-  .pagination-more {
-    display: block;
-  }
-
-  a.pagination-step,
-  span.pagination-step {
-    padding: 0 15px;
-    width: auto;
-  }
-}
+.pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
 
 <div id="conference-list">
@@ -94,17 +67,17 @@ span.pagination-step {
 {% if paginator.total_pages > 1 %}
 <nav class="pagination" role="navigation">
   {% if paginator.previous_page %}
-  <a class="pagination-link pagination-previous" href="{{ paginator.previous_page_path | prepend: '/cyberwednesday' }}">Précédent</a>
+  <a class="pagination-link pagination-previous" href="{{ paginator.previous_page_path | prepend: '/cyberwednesday' }}">&laquo;</a>
   {% else %}
-  <span class="pagination-link pagination-previous disabled">Précédent</span>
+  <span class="pagination-link pagination-previous disabled">&laquo;</span>
   {% endif %}
 
-  <span class="pagination-link pagination-page-number">Page {{ paginator.page }} sur {{ paginator.total_pages }}</span>
+  <span class="pagination-link pagination-page-number">{{ paginator.page }}</span>
 
   {% if paginator.next_page %}
-  <a class="pagination-link pagination-next" href="{{ paginator.next_page_path | prepend: '/cyberwednesday' }}">Suivant</a>
+  <a class="pagination-link pagination-next" href="{{ paginator.next_page_path | prepend: '/cyberwednesday' }}">&raquo;</a>
   {% else %}
-  <span class="pagination-link pagination-next disabled">Suivant</span>
+  <span class="pagination-link pagination-next disabled">&raquo;</span>
   {% endif %}
 </nav>
 {% endif %}
