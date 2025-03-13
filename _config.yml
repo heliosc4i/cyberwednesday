@@ -1,6 +1,9 @@
-title: "HELIOS Cyber Wednesday"
-description: "Site dédié aux conférences HELIOS Cyber Wednesday"
-baseurl: ""          # Leave empty if publishing at the domain root
-url: "https://heliosc4i.github.io/cyberwednesday/"  # Replace with your URL
+title: "Projet HELIOS - Mercredi Cyber"
+description: "Site dédié aux conférences Mercredi Cyber du Projet HELIOS"
+baseurl: ""
+url: "https://heliosc4i.github.io/cyberwednesday/"
 theme: minima
-
+plugins:
+  - jekyll-paginate
+paginate: 5
+paginate_path: "/page:num/"

@@ -1,6 +1,8 @@
 ---
 layout: default
 title: "Mercredi Cyber - Projet HELIOS"
+pagination:
+  enabled: true
 ---
 
 <style>
@@ -18,7 +20,7 @@ title: "Mercredi Cyber - Projet HELIOS"
 </style>
 
 <div id="conference-list">
-  {% for post in site.posts %}
+  {% for post in paginator.posts %}
   <article class="conference">
     <header>
       <h3>{{ post.title }}</h3>
