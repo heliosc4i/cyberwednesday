@@ -28,7 +28,7 @@ h3 {
 .pagination .pagination-link {
   padding: 0.6em 1.2em;
   margin: 0 0.3em;
-  border: 2px solid #3498db;
+  border: 2px solid #333;
   background-color: #fff;
   color: #333;
   text-decoration: none;
@@ -86,7 +86,7 @@ h3 {
   <span class="pagination-link pagination-previous disabled">&laquo;</span>
   {% endif %}
 
-  <span class="pagination-link pagination-page-number">{{ paginator.page }} sur {{ paginator.total_pages }}</span>
+  <span class="pagination-link pagination-page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span>
 
   {% if paginator.next_page %}
   <a class="pagination-link pagination-next" href="{{ paginator.next_page_path | prepend: '/cyberwednesday' }}">&raquo;</a>
