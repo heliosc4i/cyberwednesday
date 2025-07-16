@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "La Réalité Virtuelle et la Réalité Augmentée - 19 Mars 2025"
-date: 2025-03-19
-flyer: /cyberwednesday/assets/images/20250319_39_Realite-Virtuelle.png
-summary: "Cette présentation explore le domaine de la réalité virtuelle (RV) et de la réalité augmentée (RA), soulignant leur développement historique depuis les premières idées et concepts jusqu'aux systèmes immersifs modernes. Elle aborde les technologies sous-jacentes de la RV et de la RA, leurs applications dans divers secteurs comme le jeu, la formation, le militaire, le marketing et l'éducation, ainsi que les défis liés à leur adoption et les développements futurs possibles dans notre vie quotidienne."
-ppt_link: /cyberwednesday/assets/downloads/39-Realite-Virtuelle.pptx
+title: "ISO/IEC 27001LI"
+date: 2025-07-09
+flyer: /cyberwednesday/assets/images/20250709_55_ISO-IEC-27001-LI.png
+summary: "L'ISO/IEC 27001 est la norme internationale de référence pour mettre en œuvre un Système de Management de la Sécurité de l'Information (SMSI) afin de protéger les données (confidentialité, intégrité, disponibilité) et gérer les cyber-risques. Face à l'augmentation des cybermenaces, les professionnels certifiés ISO 27001 Lead Implementer sont activement recherchés."
+ppt_link: /cyberwednesday/assets/downloads/55-ISO-IEC 27001LI.pptx
 ---
 
