@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "INITIAL ACCESS BROKERS"
-date: 2025-04-30
-flyer: /cyberwednesday/assets/images/20250428_45_IBA.jpg
-summary: "Les Initial Access Brokers (IAB) sont des acteurs clés de la cybercriminalité qui obtiennent et vendent des accès non autorisés à des réseaux et systèmes. Ils jouent un rôle majeur en facilitant les opérations de ransomware, notamment celles du modèle "Ransomware as a Service" (RaaS), en réduisant la charge de travail initiale des attaquants et en leur permettant d'attaquer à grande échelle. Cette prolifération des IAB a considérablement remodelé le paysage de la cybercriminalité, contribuant à l'augmentation des incidents de ransomware et abaissant les barrières à l'entrée pour les cybercriminels. Pour se protéger, les organisations doivent adopter des stratégies proactives, notamment en surveillant les plateformes de vente d'accès et en améliorant leurs capacités de détection interne des activités suspectes."
-ppt_link: /cyberwednesday/assets/downloads/45-IAB.pptx
+title: "CLOUD COMPUTING SECURITY"
+date: 2025-07-16
+flyer: /cyberwednesday/assets/images/20250716_56_Cloud-computing-security.jpg
+summary: "le cloud computing comme disruptor technologique et les défis majeurs de sécurité qu'il implique, notamment pour les modèles public, privé, hybride et multi-cloud. Il souligne l'impératif d'implémenter des principes de sécurité robustes (visibilité, chiffrement, MFA, surveillance) et des stratégies spécifiques à chaque déploiement pour protéger les données face aux cyberattaques et menaces croissantes."
+ppt_link: /cyberwednesday/assets/downloads/56-Cloud_Computing_Security.pptx
 ---
 
