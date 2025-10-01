@@ -1,0 +1,9 @@
+---
+layout: post
+title: "INTELLIGENCE ARTIFICIELLE ET GEOPOLITIQUE: LA NOUVELLE FRONTIERE DU POUVOIR MONDIAL -  2025 SEPTEMBRE 17"
+date: 2025-09-17
+flyer: /cyberwednesday/assets/images/20250917_65_INTELLIGENCE_ARTIFICIELLE_ET_GEOPOLITIQUE.jpg
+summary: ""
+ppt_link: /cyberwednesday/assets/downloads/65-INTELLIGENCE_ARTIFICIELLE_ET_GEOPOLITIQUE .pptx
+---
+
