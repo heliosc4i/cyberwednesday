@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PLAN DE REPRISE D'ACTIVITE  -  2025 Juillet 23"
+title: "PLAN DE REPRISE D'ACTIVITE  -  23 Juillet 2025"
 date: 2025-07-23
 flyer: /cyberwednesday/assets/images/20250723_57_PRA.png
 summary: ""
