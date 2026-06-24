@@ -1,8 +1,8 @@
 ---
 layout: post
-title: " TITRE -  25 FEVRIER 2026" 
+title: " EVOLUTION DE L'ESPIONNAGE -  25 FEVRIER 2026" 
 date: 2026-02-25
-flyer: /cyberwednesday/assets/images/20260225_86_.png
+flyer: /cyberwednesday/assets/images/20260225_86_EVOLUTION_DE_L_ESPIONNAGE.png
 summary: ""
-ppt_link: /cyberwednesday/assets/downloads/86-.pptx
+ppt_link: /cyberwednesday/assets/downloads/86_EVOLUTION_DE_L_ESPIONNAGE.pptx
 ---
