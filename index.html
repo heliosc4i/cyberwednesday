@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERWEDNESDAY — 100e Édition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#020c1b;--bg2:#081422;--bg3:#0d1f3c;
+  --cyan:#007a18;--cyan2:#006414;--gold:#ffc947;
+  --purple:#006414;--red:#ff4757;--green:#00ff88;
+  --white:#f0f8ff;--muted:#7a8a9e;
+  --border:rgba(0,100,20,0.12);
+  --card:rgba(8,20,34,0.85);
+  --glass:rgba(0,100,20,0.04);
+  --r:14px;
+  --glow:0 0 20px rgba(0,100,20,0.6),0 0 60px rgba(0,100,20,0.25);
+  --tech:'Orbitron',monospace;
+  --body:'Inter',system-ui,sans-serif;
+}
+body{font-family:var(--body);background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none}
+
+/* ── PRELOADER ── */
+#preloader{
+  position:fixed;inset:0;z-index:9999;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.75rem;
+  transition:opacity .6s,visibility .6s;
+}
+#preloader.gone{opacity:0;visibility:hidden;pointer-events:none}
+.pl-logo{font-family:var(--tech);font-size:1.6rem;font-weight:900;letter-spacing:.1em;
+  color:var(--cyan);text-shadow:0 0 30px rgba(0,100,20,.7);animation:tpulse 1.2s ease-in-out infinite alternate}
+.pl-logo b{color:var(--gold)}
+.pl-bar{width:220px;height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;position:relative}
+.pl-bar::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--cyan2));animation:barslide 1.4s ease-in-out infinite}
+.pl-status{font-family:var(--tech);font-size:.6rem;letter-spacing:.3em;color:var(--muted);animation:blink .8s step-end infinite}
+@keyframes barslide{to{left:100%}}
+@keyframes blink{50%{opacity:0}}
+@keyframes tpulse{from{text-shadow:0 0 10px rgba(0,100,20,.4)}to{text-shadow:0 0 40px rgba(0,100,20,.9),0 0 80px rgba(0,100,20,.3)}}
+
+/* ── CURSOR ── */
+.cur-dot{position:fixed;width:8px;height:8px;background:var(--cyan);border-radius:50%;
+  pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+  box-shadow:0 0 8px var(--cyan),0 0 20px rgba(0,100,20,.4);transition:width .15s,height .15s,background .15s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(0,100,20,.5);border-radius:50%;
+  pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .2s ease-out,height .2s ease-out,border-color .2s}
+.cur-dot.h{width:14px;height:14px;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.cur-ring.h{width:54px;height:54px;border-color:var(--gold)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.4rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.scrolled{background:rgba(2,12,27,.94);backdrop-filter:blur(20px);padding:.8rem 2.5rem;
+  border-bottom:1px solid var(--border);box-shadow:0 4px 40px rgba(0,0,0,.5)}
+.n-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.n-logo img{width:34px;height:34px;object-fit:contain;border-radius:50%;border:1px solid rgba(0,100,20,.2)}
+.n-logo-txt{font-family:var(--tech);font-size:.95rem;font-weight:700;color:var(--white);letter-spacing:.08em}
+.n-logo-txt span{color:var(--cyan)}
+.n-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.n-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:500;
+  letter-spacing:.04em;transition:color .2s;position:relative}
+.n-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;
+  background:var(--cyan);transition:width .3s}
+.n-links a:hover{color:var(--white)}
+.n-links a:hover::after{width:100%}
+.n-cta{background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg)!important;
+  padding:.5rem 1.3rem;border-radius:6px;font-weight:700!important;font-size:.75rem;
+  letter-spacing:.08em;text-transform:uppercase;transition:transform .2s,box-shadow .2s!important}
+.n-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,100,20,.45)!important}
+.n-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:var(--cyan);display:block;transition:all .3s}
+
+/* mobile overlay */
+.mob-menu{display:none;position:fixed;inset:0;z-index:998;background:rgba(2,12,27,.97);
+  backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--tech);font-size:1.1rem;font-weight:700;color:var(--white);
+  text-decoration:none;letter-spacing:.1em;transition:color .2s}
+.mob-menu a:hover{color:var(--cyan)}
+.mob-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;
+  color:var(--muted);font-size:1.4rem;cursor:pointer}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;text-align:center;overflow:hidden}
+.h-bg{position:absolute;inset:0;
+  background:url('images/Gps-112.jpg') center/cover no-repeat;
+  transform:scale(1.06);will-change:transform}
+.h-bg::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(2,12,27,.9) 0%,rgba(0,30,10,.82) 50%,rgba(2,12,27,.96) 100%)}
+.h-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,100,20,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,100,20,.035) 1px,transparent 1px);
+  background-size:65px 65px;
+  mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 0%,transparent 100%)}
+.h-scan{position:absolute;inset:0;
+  background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,.07) 3px,rgba(0,0,0,.07) 4px);
+  pointer-events:none}
+#cvs{position:absolute;inset:0;z-index:1;pointer-events:none}
+.h-content{position:relative;z-index:2;width:100%;max-width:860px;padding:0 2rem;
+  display:flex;flex-direction:column;align-items:center;text-align:center;margin:0 auto}
+
+/* ── MILESTONE BADGE ── */
+.milestone{position:relative;display:inline-flex;flex-direction:column;align-items:center;
+  margin-bottom:2.5rem;animation:fadeup .9s ease backwards .4s}
+
+/* étoiles tournantes */
+.ms-stars{position:absolute;inset:-30px;pointer-events:none}
+.ms-star{position:absolute;font-size:.85rem;color:var(--gold);opacity:0;
+  animation:starFloat 3s ease-in-out infinite}
+.ms-star:nth-child(1){top:0;left:50%;animation-delay:0s}
+.ms-star:nth-child(2){top:15%;right:5%;animation-delay:.4s}
+.ms-star:nth-child(3){top:15%;left:5%;animation-delay:.8s}
+.ms-star:nth-child(4){bottom:5%;right:10%;animation-delay:1.2s}
+.ms-star:nth-child(5){bottom:5%;left:10%;animation-delay:1.6s}
+.ms-star:nth-child(6){bottom:0;left:50%;animation-delay:2s}
+@keyframes starFloat{
+  0%,100%{opacity:0;transform:scale(.5) translateY(0)}
+  50%{opacity:1;transform:scale(1.2) translateY(-6px)}
+}
+
+/* cadre décoratif */
+.ms-frame{position:relative;padding:1.6rem 3rem;
+  background:linear-gradient(135deg,rgba(255,201,71,.06),rgba(255,201,71,.02));
+  border:1px solid rgba(255,201,71,.25);border-radius:4px;
+  overflow:hidden}
+/* coins dorés */
+.ms-frame::before,.ms-frame::after{content:'';position:absolute;width:18px;height:18px;
+  border-color:var(--gold);border-style:solid;opacity:.8}
+.ms-frame::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.ms-frame::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+.ms-corner-tr,.ms-corner-bl{position:absolute;width:18px;height:18px;
+  border-color:var(--gold);border-style:solid;opacity:.8}
+.ms-corner-tr{top:-1px;right:-1px;border-width:2px 2px 0 0}
+.ms-corner-bl{bottom:-1px;left:-1px;border-width:0 0 2px 2px}
+
+/* shimmer sweep */
+.ms-frame .ms-shine{position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,201,71,.15),transparent);
+  animation:shimmer 2.8s ease-in-out infinite 1s}
+@keyframes shimmer{0%{left:-100%}50%,100%{left:160%}}
+
+/* contenu */
+.ms-label{font-family:var(--tech);font-size:.6rem;font-weight:600;letter-spacing:.35em;
+  color:var(--gold);opacity:.8;text-transform:uppercase;margin-bottom:.3rem}
+.ms-number{font-family:var(--tech);font-size:clamp(3.5rem,10vw,6.5rem);font-weight:900;
+  line-height:1;color:var(--gold);
+  text-shadow:0 0 30px rgba(255,201,71,.6),0 0 80px rgba(255,201,71,.25);
+  animation:goldPulse 2.5s ease-in-out infinite alternate;letter-spacing:-.02em}
+.ms-number sup{font-size:.38em;vertical-align:super;letter-spacing:.05em;
+  color:rgba(255,201,71,.85);text-shadow:none}
+.ms-sub{font-family:var(--tech);font-size:.58rem;font-weight:600;letter-spacing:.4em;
+  color:rgba(255,201,71,.6);text-transform:uppercase;margin-top:.4rem}
+@keyframes goldPulse{
+  from{text-shadow:0 0 20px rgba(255,201,71,.5),0 0 60px rgba(255,201,71,.2)}
+  to{text-shadow:0 0 40px rgba(255,201,71,.9),0 0 100px rgba(255,201,71,.4),0 0 160px rgba(255,201,71,.15)}
+}
+
+/* GLITCH */
+.glitch-wrap{animation:fadeup .8s ease backwards .8s;margin-bottom:.4rem;
+  width:100%;display:flex;justify-content:center}
+.glitch{font-family:var(--tech);font-size:clamp(2.2rem,7.5vw,5.5rem);font-weight:900;
+  color:var(--white);letter-spacing:.04em;line-height:1.05;position:relative;
+  display:inline-block;text-align:center}
+.glitch em{color:var(--cyan);font-style:normal;text-shadow:0 0 30px rgba(0,100,20,.7)}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:50%;
+  transform:translateX(-50%);white-space:nowrap;text-align:center}
+.glitch::before{color:#ff0077;animation:gc1 5s infinite linear;z-index:-1}
+.glitch::after{color:var(--cyan2);animation:gc2 5s infinite linear;z-index:-1}
+@keyframes gc1{
+  0%,88%,100%{clip-path:inset(100% 0 0 0);transform:translateX(-50%)}
+  90%{clip-path:inset(18% 0 62% 0);transform:translateX(calc(-50% - 5px)) translateY(2px)}
+  92%{clip-path:inset(65% 0 8% 0);transform:translateX(calc(-50% + 5px)) translateY(-2px)}
+  94%{clip-path:inset(38% 0 44% 0);transform:translateX(calc(-50% - 3px)) translateY(1px)}
+  96%{clip-path:inset(78% 0 6% 0);transform:translateX(calc(-50% + 3px)) translateY(-1px)}
+}
+@keyframes gc2{
+  0%,86%,100%{clip-path:inset(100% 0 0 0);transform:translateX(-50%)}
+  88%{clip-path:inset(8% 0 82% 0);transform:translateX(calc(-50% + 5px)) translateY(-2px)}
+  90%{clip-path:inset(72% 0 12% 0);transform:translateX(calc(-50% - 5px)) translateY(2px)}
+  92%{clip-path:inset(28% 0 55% 0);transform:translateX(calc(-50% + 3px)) translateY(-1px)}
+  94%{clip-path:inset(52% 0 32% 0);transform:translateX(calc(-50% - 3px)) translateY(1px)}
+}
+.h-edition{font-family:var(--tech);font-size:clamp(.75rem,1.5vw,1rem);font-weight:400;
+  color:var(--gold);letter-spacing:.35em;text-transform:uppercase;margin-bottom:1.75rem;
+  animation:fadeup .8s ease backwards 1s}
+.h-sub{font-size:1rem;color:rgba(240,248,255,.6);max-width:580px;margin:0 auto 2.5rem;
+  line-height:1.75;animation:fadeup .8s ease backwards 1.2s;min-height:1.75em}
+.h-meta{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:3rem;
+  animation:fadeup .8s ease backwards 1.4s}
+.h-meta-item{display:flex;align-items:center;gap:.6rem;color:rgba(240,248,255,.82);font-size:.9rem}
+.h-meta-item .mi{width:34px;height:34px;background:rgba(0,100,20,.08);
+  border:1px solid rgba(0,100,20,.2);border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:.85rem}
+.h-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeup .8s ease backwards 1.6s}
+
+.btn-glow{display:inline-flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);
+  padding:.88rem 2.2rem;border-radius:8px;text-decoration:none;font-weight:700;
+  font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+  transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.btn-glow::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.18),transparent);opacity:0;transition:opacity .3s}
+.btn-glow:hover{transform:translateY(-3px);box-shadow:0 14px 42px rgba(0,100,20,.5)}
+.btn-glow:hover::before{opacity:1}
+.btn-outline{display:inline-flex;align-items:center;gap:.5rem;background:transparent;
+  color:var(--white);padding:.88rem 2.2rem;border-radius:8px;text-decoration:none;
+  font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(0,100,20,.3);transition:all .3s}
+.btn-outline:hover{border-color:var(--cyan);background:rgba(0,100,20,.07);transform:translateY(-3px)}
+.btn-join{display:inline-flex;align-items:center;gap:.6rem;
+  background:linear-gradient(135deg,var(--gold),#e6a800);color:#020c1b;
+  padding:.95rem 2.5rem;border-radius:8px;text-decoration:none;font-weight:800;
+  font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:0 0 24px rgba(255,201,71,.4),0 0 60px rgba(255,201,71,.15);
+  transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.btn-join::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.25),transparent);opacity:0;transition:opacity .3s}
+.btn-join:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(255,201,71,.55),0 0 80px rgba(255,201,71,.25)}
+.btn-join:hover::before{opacity:1}
+
+.scroll-ind{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  animation:fadeup 1s ease backwards 2s}
+.scroll-ind span{font-family:var(--tech);font-size:.55rem;letter-spacing:.25em;color:var(--muted)}
+.scroll-mouse{width:22px;height:34px;border:1.5px solid rgba(0,100,20,.35);border-radius:11px;
+  display:flex;justify-content:center;padding-top:5px}
+.scroll-mouse::before{content:'';width:3px;height:7px;background:var(--cyan);border-radius:2px;
+  animation:scrolldot 1.8s ease-in-out infinite}
+@keyframes scrolldot{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(12px)}}
+
+/* ── STATS ── */
+.stats-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem 2rem}
+.stats-grid{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{text-align:center;padding:1rem 1.5rem;border-right:1px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:var(--tech);font-size:2.8rem;font-weight:900;color:var(--cyan);
+  display:block;line-height:1;margin-bottom:.45rem;text-shadow:0 0 25px rgba(0,100,20,.5)}
+.stat-lbl{font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(48px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.rl{opacity:0;transform:translateX(-48px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rl.on{opacity:1;transform:translateX(0)}
+.rr{opacity:0;transform:translateX(48px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rr.on{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
+
+/* ── SECTIONS ── */
+section{padding:6rem 2rem}
+.ctr{max-width:1140px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--tech);
+  font-size:.62rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:.85rem}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--cyan)}
+.s-title{font-family:var(--tech);font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:700;
+  color:var(--white);line-height:1.15;margin-bottom:.9rem}
+.s-title span{color:var(--cyan)}
+.s-desc{color:var(--muted);font-size:.97rem;line-height:1.75;max-width:520px}
+
+/* ── ABOUT ── */
+#apropos{background:var(--bg);position:relative;overflow:hidden}
+#apropos::before{content:'';position:absolute;top:-100px;right:-150px;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(0,100,20,.07) 0%,transparent 70%);pointer-events:none}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-text p{color:var(--muted);line-height:1.85;margin-bottom:1.1rem;font-size:.95rem}
+.about-points{margin-top:2rem;display:flex;flex-direction:column;gap:.85rem}
+.about-pt{display:flex;align-items:flex-start;gap:.9rem;padding:.9rem 1.1rem;
+  background:var(--glass);border:1px solid var(--border);border-radius:10px;
+  transition:border-color .3s,background .3s,transform .3s}
+.about-pt:hover{border-color:rgba(0,100,20,.3);background:rgba(0,100,20,.06);transform:translateX(4px)}
+.about-pt-icon{width:34px;height:34px;background:rgba(0,100,20,.09);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.about-pt-txt{font-size:.88rem;color:rgba(240,248,255,.8);line-height:1.55}
+.about-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:2.25rem;position:relative;overflow:hidden;backdrop-filter:blur(12px)}
+.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--gold))}
+.card-logo-row{display:flex;align-items:center;gap:.9rem;padding-bottom:1.5rem;
+  margin-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.card-logo-row img{width:56px;height:56px;object-fit:contain;border-radius:50%;
+  border:1px solid rgba(0,100,20,.2)}
+.card-logo-row .clt{font-family:var(--tech);font-size:.72rem;font-weight:700;color:var(--white)}
+.card-logo-row .clt small{display:block;color:var(--muted);font-weight:400;font-size:.58rem;
+  letter-spacing:.12em;margin-top:2px}
+.info-rows{display:flex;flex-direction:column;gap:1.1rem}
+.info-row{display:flex;gap:.9rem;align-items:flex-start}
+.info-icon{width:36px;height:36px;background:rgba(0,100,20,.07);border:1px solid rgba(0,100,20,.15);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.info-con strong{display:block;font-family:var(--tech);font-size:.58rem;font-weight:600;
+  letter-spacing:.15em;color:var(--cyan);text-transform:uppercase;margin-bottom:3px}
+.info-con span{font-size:.88rem;color:rgba(240,248,255,.82)}
+
+/* ── THEMES ── */
+#themes{background:var(--bg2);position:relative;overflow:hidden}
+#themes::after{content:'';position:absolute;bottom:-80px;left:-80px;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(0,100,20,.05) 0%,transparent 70%);pointer-events:none}
+.th-head{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3.5rem}
+.themes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem}
+.th-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:1.9rem;position:relative;overflow:hidden;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  cursor:pointer;backdrop-filter:blur(10px)}
+.th-card::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.025),transparent);opacity:0;transition:opacity .3s}
+.th-card:hover::after{opacity:1}
+.th-card:nth-child(1){border-top:2px solid rgba(0,100,20,.4)}
+.th-card:nth-child(1):hover{border-color:rgba(0,100,20,.5);box-shadow:0 20px 60px rgba(0,100,20,.09)}
+.th-card:nth-child(2){border-top:2px solid rgba(255,71,87,.4)}
+.th-card:nth-child(2):hover{border-color:rgba(255,71,87,.5);box-shadow:0 20px 60px rgba(255,71,87,.07)}
+.th-card:nth-child(3){border-top:2px solid rgba(0,100,20,.4)}
+.th-card:nth-child(3):hover{border-color:rgba(0,100,20,.5);box-shadow:0 20px 60px rgba(0,100,20,.07)}
+.th-card:nth-child(4){border-top:2px solid rgba(255,201,71,.4)}
+.th-card:nth-child(4):hover{border-color:rgba(255,201,71,.5);box-shadow:0 20px 60px rgba(255,201,71,.07)}
+.th-num{position:absolute;top:1.2rem;right:1.4rem;font-family:var(--tech);font-size:.55rem;
+  font-weight:600;letter-spacing:.15em;color:rgba(120,140,170,.25)}
+.th-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:1.4rem;margin-bottom:1.3rem;
+  transition:transform .35s;border:1px solid}
+.th-card:nth-child(1) .th-icon{background:rgba(0,100,20,.1);border-color:rgba(0,100,20,.2)}
+.th-card:nth-child(2) .th-icon{background:rgba(255,71,87,.1);border-color:rgba(255,71,87,.2)}
+.th-card:nth-child(3) .th-icon{background:rgba(0,100,20,.1);border-color:rgba(0,100,20,.2)}
+.th-card:nth-child(4) .th-icon{background:rgba(255,201,71,.1);border-color:rgba(255,201,71,.2)}
+.th-card:hover .th-icon{transform:scale(1.12) rotate(-6deg)}
+.th-card h3{font-family:var(--tech);font-size:.9rem;font-weight:700;color:var(--white);
+  letter-spacing:.04em;margin-bottom:.65rem}
+.th-card p{font-size:.85rem;color:var(--muted);line-height:1.65}
+
+/* ── SPEAKERS ── */
+#intervenants{background:var(--bg);position:relative}
+#intervenants::before{content:'';position:absolute;top:50%;right:-150px;width:450px;height:450px;
+  background:radial-gradient(circle,rgba(0,255,136,.04) 0%,transparent 70%);pointer-events:none}
+.sp-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;gap:2rem;flex-wrap:wrap}
+.sp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+@media(max-width:900px){.sp-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.sp-grid{grid-template-columns:1fr}}
+.sp-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;transition:transform .35s,border-color .35s,box-shadow .35s;
+  cursor:pointer;backdrop-filter:blur(10px)}
+.sp-card:hover{transform:translateY(-8px);border-color:rgba(0,100,20,.28);
+  box-shadow:0 28px 60px rgba(0,0,0,.5),0 0 0 1px rgba(0,100,20,.08)}
+.sp-photo{width:100%;aspect-ratio:1;
+  background:linear-gradient(135deg,var(--bg3) 0%,rgba(0,100,20,.06) 100%);
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.sp-photo::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 55%,var(--card))}
+.sp-avatar{font-family:var(--tech);font-size:2.2rem;font-weight:700;
+  color:rgba(0,100,20,.18);user-select:none}
+.sp-info{padding:1.1rem 1.1rem 1.3rem}
+.sp-info h4{font-family:var(--tech);font-size:.75rem;font-weight:700;
+  color:var(--white);letter-spacing:.04em;margin-bottom:.28rem}
+.sp-role{font-size:.72rem;color:var(--cyan);font-weight:600;margin-bottom:.2rem}
+.sp-org{font-size:.7rem;color:var(--muted)}
+.sp-tag{display:inline-block;margin-top:.65rem;font-family:var(--tech);font-size:.54rem;
+  letter-spacing:.1em;color:rgba(0,100,20,.45);border:1px solid rgba(0,100,20,.18);
+  padding:.18rem .55rem;border-radius:4px;text-transform:uppercase}
+
+/* ── PROGRAMME ── */
+#programme{background:var(--bg2);position:relative}
+.pg-head{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3.5rem}
+.timeline{position:relative;padding-left:1.75rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,var(--cyan),var(--purple) 70%,transparent)}
+.tl-item{position:relative;padding:0 0 2.25rem 2.25rem}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-5.5px;top:5px;width:11px;height:11px;
+  background:var(--bg2);border:2px solid var(--cyan);border-radius:50%;
+  transition:background .3s,box-shadow .3s}
+.tl-item:hover .tl-dot{background:var(--cyan);box-shadow:0 0 12px rgba(0,100,20,.6)}
+.tl-item.feat .tl-dot{border-color:var(--gold)}
+.tl-item.feat:hover .tl-dot{background:var(--gold);box-shadow:0 0 12px rgba(255,201,71,.6)}
+.tl-item.brk .tl-dot{border-color:var(--green)}
+.tl-time{font-family:var(--tech);font-size:.62rem;font-weight:600;letter-spacing:.1em;
+  color:var(--cyan);margin-bottom:.38rem}
+.tl-item.feat .tl-time{color:var(--gold)}
+.tl-item.brk .tl-time{color:var(--green)}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:1.1rem 1.3rem;transition:border-color .3s,box-shadow .3s,transform .3s;
+  backdrop-filter:blur(10px)}
+.tl-item:hover .tl-card{border-color:rgba(0,100,20,.22);
+  box-shadow:0 10px 40px rgba(0,0,0,.35);transform:translateX(5px)}
+.tl-item.feat .tl-card{border-color:rgba(255,201,71,.18);background:rgba(255,201,71,.025)}
+.tl-item.feat:hover .tl-card{border-color:rgba(255,201,71,.38);box-shadow:0 10px 40px rgba(255,201,71,.07)}
+.tl-item.brk .tl-card{border-color:rgba(0,255,136,.12);background:rgba(0,255,136,.018)}
+.tl-ttl{font-size:.92rem;font-weight:600;color:var(--white);margin-bottom:.22rem}
+.tl-spk{font-size:.77rem;color:var(--cyan);font-weight:500}
+.tl-item.feat .tl-spk{color:var(--gold)}
+.tl-loc{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+
+/* ── INSCRIPTION ── */
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:3.5rem 2rem 2rem}
+.ft-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;
+  gap:4rem;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.ft-brand .brand-name{font-family:var(--tech);font-size:1rem;font-weight:900;
+  color:var(--white);letter-spacing:.08em;margin-bottom:.4rem}
+.ft-brand .brand-name span{color:var(--cyan)}
+.ft-brand p{color:var(--muted);font-size:.82rem;line-height:1.7;max-width:270px;margin-top:.65rem}
+.ft-col h5{font-family:var(--tech);font-size:.6rem;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.ft-col a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .2s}
+.ft-col a:hover{color:var(--white)}
+.ft-bottom{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:1rem}
+.ft-bottom p{font-size:.78rem;color:var(--muted)}
+.ft-bottom a{color:var(--cyan);text-decoration:none}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dotpulse{0%,100%{box-shadow:0 0 6px var(--cyan)}50%{box-shadow:0 0 14px var(--cyan),0 0 28px rgba(0,100,20,.4)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .about-grid,.th-head,.pg-head,.ft-inner{grid-template-columns:1fr;gap:2.5rem}
+  .themes-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-item:nth-child(2){border-right:none}
+  .stat-item:nth-child(3),.stat-item:nth-child(4){border-top:1px solid var(--border)}
+  .n-links{display:none}.hamburger{display:flex}
+  .sp-head{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:580px){
+
+  .h-meta{flex-direction:column;align-items:center;gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pl-logo">CYBER<b>WEDNESDAY</b></div>
+  <div class="pl-bar"></div>
+  <div class="pl-status">INITIALISATION DU SYSTÈME...</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cur-dot" id="cDot"></div>
+<div class="cur-ring" id="cRing"></div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#apropos" onclick="closeMob()">À propos</a>
+  <a href="#themes" onclick="closeMob()">Thèmes</a>
+  <a href="#intervenants" onclick="closeMob()">Intervenants</a>
+  <a href="#programme" onclick="closeMob()">Programme</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="n-logo">
+    <img src="images/logo.png" alt="Logo Projet HELIOS">
+    <span class="n-logo-txt"><span>CYBER</span>WEDNESDAY</span>
+  </a>
+  <ul class="n-links">
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#themes">Thèmes</a></li>
+    <li><a href="#intervenants">Intervenants</a></li>
+    <li><a href="#programme">Programme</a></li>
+  </ul>
+  <div class="hamburger" id="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="h-bg" id="hBg"></div>
+  <div class="h-grid"></div>
+  <div class="h-scan"></div>
+  <canvas id="cvs"></canvas>
+  <div class="h-content">
+    <div class="milestone">
+      <div class="ms-stars">
+        <span class="ms-star">✦</span>
+        <span class="ms-star">✦</span>
+        <span class="ms-star">✦</span>
+        <span class="ms-star">✦</span>
+        <span class="ms-star">✦</span>
+        <span class="ms-star">✦</span>
+      </div>
+      <div class="ms-frame">
+        <div class="ms-shine"></div>
+        <div class="ms-corner-tr"></div>
+        <div class="ms-corner-bl"></div>
+        <div class="ms-label">— Édition Spéciale —</div>
+        <div class="ms-number">100<sup>e</sup></div>
+        <div class="ms-sub">CYBERWEDNESDAY</div>
+      </div>
+    </div>
+    <div class="glitch-wrap">
+      <h1 class="glitch" data-text="CYBERWEDNESDAY">CYBER<em>WEDNESDAY</em></h1>
+    </div>
+    <div class="h-edition">— Conférence et Debat —</div>
+    <p class="h-sub" id="typeTxt"></p>
+    <div class="h-meta">
+      <div class="h-meta-item"><div class="mi">📅</div><span>1er juillet 2026 — 11h00</span></div>
+      <div class="h-meta-item"><div class="mi">🖥️</div><span>Google Meet &amp; Présentiel — PC HELIOS</span></div>
+      <div class="h-meta-item"><div class="mi">⏱️</div><span>02 heures</span></div>
+    </div>
+    <div class="h-actions">
+      <a href="https://meet.google.com/mgr-zejv-gcw" target="_blank" rel="noopener" class="btn-join">🎥 Participer — Google Meet</a>
+      <a href="#programme" class="btn-glow">Voir le programme →</a>
+      <a href="#intervenants" class="btn-outline">Les intervenants</a>
+    </div>
+  </div>
+  <div class="scroll-ind">
+    <div class="scroll-mouse"></div>
+    <span>DÉFILER</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item rv"><span class="stat-num" data-t="8">0</span><span class="stat-lbl">Intervenants</span></div>
+    <div class="stat-item rv d1"><span class="stat-num" data-static="01">01</span><span class="stat-lbl">Session</span></div>
+    <div class="stat-item rv d2"><span class="stat-num" data-t="200" data-sfx="+">0</span><span class="stat-lbl">Participants attendus</span></div>
+    <div class="stat-item rv d3"><span class="stat-num" data-static="2H">2H</span><span class="stat-lbl">Durée</span></div>
+  </div>
+</div>
+
+<!-- À PROPOS -->
+<section id="apropos">
+  <div class="ctr">
+    <div class="about-grid">
+      <div class="rl">
+        <div class="eyebrow">À propos</div>
+        <h2 class="s-title">100<sup style="font-size:.55em">e</sup> ÉDITION DU<br><span>CYBERWEDNESDAY</span></h2>
+        <p>Le Mercredi Cyber est un rendez-vous mensuel dédié à l'échange entre professionnels, chercheurs et décideurs autour des enjeux du numérique, de la cybersécurité et de l'intelligence artificielle.</p>
+        <p>Cette <strong style="color:var(--gold)">100e édition</strong> marque une étape historique. Elle réunit 8 experts de haut niveau pour des échanges approfondis sur l'IA et la transformation numérique, en format hybride — présentiel et en ligne.</p>
+        <div class="about-points">
+          <div class="about-pt"><div class="about-pt-icon">🎯</div><div class="about-pt-txt">Échanges sur l'IA et la transformation numérique avec des experts reconnus</div></div>
+          <div class="about-pt"><div class="about-pt-icon">🔗</div><div class="about-pt-txt">Format hybride : présentiel au PC HELIOS + diffusion Google Meet</div></div>
+          <div class="about-pt"><div class="about-pt-icon">💡</div><div class="about-pt-txt">Rétrospective des 100 éditions et vision pour l'avenir du Mercredi Cyber</div></div>
+        </div>
+      </div>
+      <div class="about-card rr">
+        <div class="card-logo-row">
+          <img src="images/logo.png" alt="Projet HELIOS">
+          <div class="clt">PROJET HELIOS<small>ORGANISATEUR OFFICIEL</small></div>
+        </div>
+        <div class="info-rows">
+          <div class="info-row"><div class="info-icon">📅</div><div class="info-con"><strong>Date</strong><span>1er juillet 2026 à 11h00</span></div></div>
+          <div class="info-row"><div class="info-icon">📍</div><div class="info-con"><strong>Présentiel</strong><span>Salle de conférence du PC HELIOS</span></div></div>
+          <div class="info-row"><div class="info-icon">🖥️</div><div class="info-con"><strong>En ligne</strong><span>Google Meet</span></div></div>
+          <div class="info-row"><div class="info-icon">⏱️</div><div class="info-con"><strong>Durée</strong><span>02 heures (11h00 – 13h00)</span></div></div>
+          <div class="info-row">
+            <img src="images/col MBECK .jpg" alt="Colonel MBECK" style="width:42px;height:42px;object-fit:cover;object-position:top;border-radius:50%;border:2px solid rgba(0,100,20,.3);flex-shrink:0;">
+            <div class="info-con"><strong>Modérateur</strong><span>Colonel MBECK</span></div>
+          </div>
+          <div class="info-row"><div class="info-icon">🏛️</div><div class="info-con"><strong>Organisateur</strong><span>Projet HELIOS</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THÈMES -->
+<section id="themes">
+  <div class="ctr">
+    <div class="th-head">
+      <div class="rl">
+        <div class="eyebrow">Thématiques</div>
+        <h2 class="s-title">Les <span>thèmes</span><br>de la conférence</h2>
+      </div>
+      <p class="s-desc rr">Quatre axes stratégiques au cœur des défis technologiques et sécuritaires contemporains, débattus par les plus grands experts du domaine.</p>
+    </div>
+    <div class="themes-grid">
+      <div class="th-card rv d1"><div class="th-num">01</div><div class="th-icon">🤖</div><h3>Intelligence Artificielle</h3><p>Fondements, avancées et perspectives de l'IA : algorithmes, apprentissage automatique, grands modèles de langage et leurs applications dans les secteurs stratégiques.</p></div>
+      <div class="th-card rv d2"><div class="th-num">02</div><div class="th-icon">🔐</div><h3>Cybersécurité</h3><p>Menaces cyber émergentes, protection des systèmes d'information critiques, réponse aux incidents et cadre réglementaire face aux cyberattaques d'État et non-étatiques.</p></div>
+      <div class="th-card rv d3"><div class="th-num">03</div><div class="th-icon">🌍</div><h3>IA & Géopolitique</h3><p>Impact de l'intelligence artificielle sur les rapports de force internationaux, la souveraineté numérique et les nouvelles formes de puissance dans le monde multipolaire.</p></div>
+      <div class="th-card rv d4"><div class="th-num">04</div><div class="th-icon">🎖️</div><h3>IA & Forces Armées</h3><p>Intégration de l'IA dans les systèmes de défense : drones autonomes, aide à la décision opérationnelle, renseignement artificiel et enjeux éthiques du combat augmenté.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERVENANTS -->
+<section id="intervenants">
+  <div class="ctr">
+    <div class="sp-head">
+      <div class="rl">
+        <div class="eyebrow">Intervenants</div>
+        <h2 class="s-title">Nos <span>experts</span><br>& conférenciers</h2>
+      </div>
+      <p class="s-desc rr" style="max-width:320px">Des experts reconnus partageront leurs analyses, expériences et visions sur les enjeux du numérique et de la sécurité.</p>
+    </div>
+    <div class="sp-grid" id="spGrid"></div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section id="programme">
+  <div class="ctr">
+    <div class="pg-head">
+      <div class="rl">
+        <div class="eyebrow">Programme</div>
+        <h2 class="s-title">Programme<br><span>1er juillet — 11h00</span></h2>
+      </div>
+      <p class="s-desc rr">02 heures d'échanges de haut niveau — en présentiel au PC HELIOS et en ligne sur Google Meet.</p>
+    </div>
+    <div class="timeline rv">
+      <div class="tl-item feat">
+        <div class="tl-dot"></div>
+        <div class="tl-time">11h00</div>
+        <div class="tl-card">
+          <div class="tl-ttl">Ouverture officielle — 100<sup>e</sup> édition du Mercredi Cyber</div>
+          <div class="tl-spk">🎙️ Modéré par le Colonel MBECK</div>
+          <div class="tl-loc">📍 PC HELIOS &nbsp;|&nbsp; 🖥️ Google Meet</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">11h00 – 12h30</div>
+        <div class="tl-card">
+          <div class="tl-ttl">Échanges sur l'IA et la transformation numérique — Questions &amp; Réponses</div>
+          <div class="tl-spk">COL NJOCK · LCL ZANG · M. Leloustre · M. Kamgang · M. Pondi · M. SOW · M. Pichele</div>
+          <div class="tl-loc">📍 PC HELIOS &nbsp;|&nbsp; 🖥️ Google Meet</div>
+        </div>
+      </div>
+      <div class="tl-item feat">
+        <div class="tl-dot"></div>
+        <div class="tl-time">12h30 – 13h00</div>
+        <div class="tl-card">
+          <div class="tl-ttl">Rétrospective et avenir du Mercredi Cyber</div>
+          <div class="tl-spk">CSPH</div>
+          <div class="tl-loc">📍 PC HELIOS &nbsp;|&nbsp; 🖥️ Google Meet</div>
+        </div>
+      </div>
+      <div class="tl-item brk">
+        <div class="tl-dot"></div>
+        <div class="tl-time">13h00</div>
+        <div class="tl-card">
+          <div class="tl-ttl">Clôture officielle de la 100<sup>e</sup> édition</div>
+          <div class="tl-loc">🎖️ Colonel MBECK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSCRIPTION -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-brand">
+      <div class="brand-name"><span>CYBER</span>WEDNESDAY</div>
+      <div style="font-family:var(--tech);font-size:.6rem;letter-spacing:.15em;color:var(--gold);margin-top:.2rem">100e ÉDITION — 2026</div>
+      <p>Conférence et Debat sur l'Intelligence Artificielle, la Cybersécurité et les enjeux stratégiques du numérique. Organisée par le Projet HELIOS.</p>
+    </div>
+    <div class="ft-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#themes">Thèmes</a></li>
+        <li><a href="#intervenants">Intervenants</a></li>
+        <li><a href="#programme">Programme</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="mailto:[info@heliosc4i.cm]">https://heliosc4i.cm/</a></li>
+        <li><a href="#">Projet HELIOS</a></li>
+        <li><a href="#">Yaoundé, Cameroun</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2026 Projet HELIOS. Tous droits réservés.</p>
+    <p>Contact : <a href="mailto:[info@heliosc4i.cm]">info@heliosc4i.cm</a></p>
+  </div>
+</footer>
+
+<script>
+/* ── PRELOADER ── */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('preloader').classList.add('gone'),1800)
+})
+
+/* ── CURSOR ── */
+const dot=document.getElementById('cDot'),ring=document.getElementById('cRing')
+let mx=0,my=0,rx=0,ry=0
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;
+  dot.style.left=mx+'px';dot.style.top=my+'px'})
+;(function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12
+  ring.style.left=rx+'px';ring.style.top=ry+'px'
+  requestAnimationFrame(animRing)
+})()
+document.querySelectorAll('a,button,.th-card,.sp-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{dot.classList.add('h');ring.classList.add('h')})
+  el.addEventListener('mouseleave',()=>{dot.classList.remove('h');ring.classList.remove('h')})
+})
+
+/* ── NAV SCROLL ── */
+const nav=document.getElementById('nav')
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>60)
+})
+
+/* ── HAMBURGER ── */
+const ham=document.getElementById('ham'),mob=document.getElementById('mobMenu')
+ham.addEventListener('click',()=>mob.classList.add('open'))
+document.getElementById('mobClose').addEventListener('click',()=>mob.classList.remove('open'))
+function closeMob(){mob.classList.remove('open')}
+
+/* ── PARTICLES ── */
+const canvas=document.getElementById('cvs')
+const ctx=canvas.getContext('2d')
+let W,H,pts=[]
+function resize(){
+  W=canvas.width=window.innerWidth
+  H=canvas.height=window.innerHeight
+}
+resize();window.addEventListener('resize',resize)
+function mkPts(){
+  pts=[]
+  const n=Math.floor(W*H/14000)
+  for(let i=0;i<n;i++) pts.push({
+    x:Math.random()*W,y:Math.random()*H,
+    vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,
+    r:Math.random()*1.8+.4,o:Math.random()*.6+.2
+  })
+}
+mkPts();window.addEventListener('resize',mkPts)
+function drawPts(){
+  ctx.clearRect(0,0,W,H)
+  const D=140
+  for(let i=0;i<pts.length;i++){
+    const p=pts[i]
+    p.x+=p.vx;p.y+=p.vy
+    if(p.x<0||p.x>W)p.vx*=-1
+    if(p.y<0||p.y>H)p.vy*=-1
+    ctx.beginPath()
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+    ctx.fillStyle=`rgba(0,100,20,${p.o})`
+    ctx.fill()
+    for(let j=i+1;j<pts.length;j++){
+      const q=pts[j],dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy)
+      if(d<D){
+        ctx.beginPath()
+        ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y)
+        ctx.strokeStyle=`rgba(0,100,20,${.18*(1-d/D)})`
+        ctx.lineWidth=.6;ctx.stroke()
+      }
+    }
+  }
+  requestAnimationFrame(drawPts)
+}
+drawPts()
+
+/* ── PARALLAX HERO ── */
+const hBg=document.getElementById('hBg')
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY
+  hBg.style.transform=`scale(1.06) translateY(${y*.25}px)`
+},{ passive:true })
+
+/* ── TYPING ── */
+const txt='IA & Transformation numérique · Format hybride · 8 experts · 2 heures d\'échanges — Le 1er juillet 2026 à 11h00.'
+const el=document.getElementById('typeTxt')
+let i=0
+setTimeout(()=>{
+  const t=setInterval(()=>{
+    el.textContent=txt.slice(0,i++)+'▋'
+    if(i>txt.length){clearInterval(t);el.textContent=txt}
+  },28)
+},2000)
+
+/* ── SPEAKERS GRID ── */
+const speakers=[
+  {n:'Colonel MBECK',r:'CSPH',o:'',init:'MB',img:'images/col MBECK .jpg'},
+  {n:'Colonel NJOCK',r:'Adjoint-Terre RMIA4',o:'',init:'NJ',img:''},
+  {n:'LCL ZANG EFFAGUE',r:'CSPH-A',o:'',init:'ZA',img:'images/ZANG.jpg'},
+  {n:'M. Olivier Leloustre',r:'Directeur Général',o:'BROADBAND Cameroon',init:'OL',img:'images/M.olivier.jpg'},
+  {n:'M. Hermann Kamgang',r:'Directeur Général',o:'Chic Aparts / Mayem Solutions France',init:'HK',img:'images/Herman.jpg'},
+  {n:'M. Paul William Pondi',r:'Expert en Géopolitique',o:'',init:'PW',img:'images/Pondi.jpg'},
+  {n:'M. Henri SOW',r:'CISO',o:'AXA France',init:'HS',img:'images/henri sow.jpeg'},
+  {n:'M. Armand Pichele',r:'MTN Cameroon',o:'',init:'AP',img:'images/armand Pichelle.jpg'},
+]
+const grid=document.getElementById('spGrid')
+speakers.forEach((s,i)=>{
+  const photo = s.img
+  ? `<img src="${s.img}" alt="${s.n}" style="width:100%;height:100%;object-fit:cover;object-position:top;">`
+  : `<div class="sp-avatar">${s.init}</div>`
+grid.innerHTML+=`
+  <div class="sp-card rv d${(i%4)+1}">
+    <div class="sp-photo">${photo}</div>
+    <div class="sp-info">
+      <h4>${s.n}</h4>
+      <div class="sp-role">${s.r}</div>
+      <div class="sp-org">${s.o}</div>
+    </div>
+  </div>`
+})
+
+/* ── SCROLL REVEAL + COUNTERS ── */
+const rvEls=document.querySelectorAll('.rv,.rl,.rr')
+const countersDone=new Set()
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return
+    e.target.classList.add('on')
+    const num=e.target.querySelector('.stat-num[data-t]')
+    if(num&&!countersDone.has(num)){
+      countersDone.add(num)
+      const tgt=+num.dataset.t,sfx=num.dataset.sfx||''
+      let s=null
+      const step=ts=>{
+        if(!s)s=ts
+        const p=Math.min((ts-s)/1400,1)
+        const v=Math.round(p*p*(3-2*p)*tgt)
+        num.textContent=(v<10&&tgt>=10?'0':'')+v+sfx
+        if(p<1)requestAnimationFrame(step)
+        else num.textContent=(tgt<10?'0':'')+tgt+sfx
+      }
+      requestAnimationFrame(step)
+    }
+  })
+},{threshold:.15})
+rvEls.forEach(el=>obs.observe(el))
+document.querySelectorAll('.stat-item').forEach(el=>obs.observe(el))
+
+/* ── 3D TILT ── */
+document.querySelectorAll('.th-card,.sp-card,.about-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect()
+    const x=(e.clientX-r.left)/r.width-.5
+    const y=(e.clientY-r.top)/r.height-.5
+    card.style.transform=`perspective(900px) rotateX(${-y*10}deg) rotateY(${x*10}deg) translateZ(8px)`
+  })
+  card.addEventListener('mouseleave',()=>{card.style.transform=''})
+})
+</script>
+</body>
+</html>
